@@ -15,4 +15,6 @@ public class VideoOrder implements Serializable {
     private String videoTitle;
     private String videoImg;
     private Integer userId;
+    //测试负载均衡时，查看调用的是哪一台服务
+    private String serviceInfo;
 }

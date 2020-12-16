@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("video")
 public class TestController {
@@ -23,7 +25,7 @@ public class TestController {
      * @return
      */
     @RequestMapping(value = "/testGetVideo",method = RequestMethod.GET)
-    public ReturnResult testGetVideo(Integer id){
+    public ReturnResult testGetVideo(Integer id, HttpServletRequest request){
         logger.info("testGetVideo;参数id:{}",id);
         ReturnResult result = new ReturnResult();
         if(id==null){
@@ -38,6 +40,7 @@ public class TestController {
             result.setMsg("查询的数据不存在");
             return result;
         }
+        video.setServiceInfo(request.getServerName()+":"+request.getServerPort());
         result.setCode(2000);
         result.setMsg("查询数据成功");
         result.setData(video);
