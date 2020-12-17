@@ -7,6 +7,7 @@ import com.limai.video.service.VideoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +46,11 @@ public class TestController {
         result.setMsg("查询数据成功");
         result.setData(video);
         return result;
+    }
+    @RequestMapping(value = "/saveVideo",method = RequestMethod.POST)
+    public void saveVideo(@RequestBody Video video){
+        logger.info("********************进入video的post请求********************");
+        logger.info("saveVideo;video:{}",JSONObject.toJSONString(video));
     }
 
 }

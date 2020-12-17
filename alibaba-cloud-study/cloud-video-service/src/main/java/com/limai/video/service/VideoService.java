@@ -8,5 +8,5 @@ public interface VideoService {
      * @param id
      * @return
      */
-    Video findById(int id);
+    Video findById(Integer id);
 }

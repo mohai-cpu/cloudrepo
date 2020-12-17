@@ -12,6 +12,10 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080
+        port: 9000
 #控制台输出sql、下划线转驼峰video
 mybatis:
   configuration:
@@ -21,7 +25,10 @@ mybatis:
 service:
   url:
     video: http://cloud-video-service
-
+#开启fegin对sentinel的支持
+feign:
+  sentinel:
+    enabled: true
 #修改负载均衡策略为随机策略（默认轮询策略）  一般使用默认不建议修改
 #第一行为服务端serviceid
 #cloud-video-service:
