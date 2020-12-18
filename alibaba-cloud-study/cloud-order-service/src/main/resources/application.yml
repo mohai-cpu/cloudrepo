@@ -29,8 +29,9 @@ service:
 feign:
   sentinel:
     enabled: true
+
 #修改负载均衡策略为随机策略（默认轮询策略）  一般使用默认不建议修改
 #第一行为服务端serviceid
-#cloud-video-service:
-#  ribbon:
-#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+cloud-video-service:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule

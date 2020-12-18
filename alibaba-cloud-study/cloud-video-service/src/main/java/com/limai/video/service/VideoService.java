@@ -5,8 +5,8 @@ import com.limai.domain.Video;
 public interface VideoService {
     /**
      * 根据id获取视频信息
-     * @param id
+     * @param videoid
      * @return
      */
-    Video findById(Integer id);
+    Video findById(Integer videoid);
 }

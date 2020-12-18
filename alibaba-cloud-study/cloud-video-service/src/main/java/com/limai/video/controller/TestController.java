@@ -22,20 +22,15 @@ public class TestController {
     private VideoService videoService;
     /**
      * 根据id查询视频信息
-     * @param id
+     * @param videoid
      * @return
      */
     @RequestMapping(value = "/testGetVideo",method = RequestMethod.GET)
-    public ReturnResult testGetVideo(Integer id, HttpServletRequest request){
-        logger.info("testGetVideo;参数id:{}",id);
+    public ReturnResult testGetVideo( Integer videoid, HttpServletRequest request){
+        logger.info("testGetVideo;参数videoid:{}",videoid);
         ReturnResult result = new ReturnResult();
-        if(id==null){
-            result.setCode(2001);
-            result.setMsg("参数id为空");
-            return result;
-        }
-        Video video = videoService.findById(id);
-        logger.info("testGetVideo;参数id:{};video:{}",id, JSONObject.toJSONString(video));
+        Video video = videoService.findById(videoid);
+        logger.info("testGetVideo;参数id:{};video:{}",videoid, JSONObject.toJSONString(video));
         if(video==null){
             result.setCode(2002);
             result.setMsg("查询的数据不存在");

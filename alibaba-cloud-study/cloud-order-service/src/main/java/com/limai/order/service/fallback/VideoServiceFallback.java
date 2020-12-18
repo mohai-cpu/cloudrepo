@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class VideoServiceFallback implements VideoService {
     @Override
-    public ReturnResult findById(Integer id) {
+    public ReturnResult findById(Integer videoid) {
         ReturnResult result = new ReturnResult();
         Video video = new Video();
         video.setTitle("fallback的兜底视频数据");

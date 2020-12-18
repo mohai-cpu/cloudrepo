@@ -11,7 +11,7 @@ public class VideoServiceImpl implements VideoService {
     private VideoMapper videoMapper;
 
     @Override
-    public Video findById(Integer id) {
-        return videoMapper.findById(id);
+    public Video findById(Integer videoid) {
+        return videoMapper.findById(videoid);
     }
 }
