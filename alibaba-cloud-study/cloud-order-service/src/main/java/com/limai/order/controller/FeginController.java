@@ -32,11 +32,11 @@ public class FeginController {
         logger.info("testFegin接口进入");
         logger.info("getVideoOrder;请求参数videoid:{}", videoid);
         ReturnResult result = new ReturnResult();
-        /*if (id == null) {
+        if (videoid == null) {
             result.setCode(2001);
             result.setMsg("请求参数为空");
             return result;
-        }*/
+        }
        /* //获取nacos注册中心的服务
         List<ServiceInstance> instances = discoveryClient.getInstances("cloud-video-service");
         if (instances == null || instances.size() == 0) {
@@ -45,19 +45,18 @@ public class FeginController {
             return result;
         }
         ServiceInstance serviceInstance = instances.get(0);*/
-        ReturnResult returnResult = videoService.findById(videoid);
-        Object data = returnResult.getData();
-        Video video = JSONObject.parseObject(JSONObject.toJSONString(data), Video.class);
-       /* if (video == null) {
+        Video video = videoService.findById(videoid);
+        if (video == null) {
             result.setCode(2003);
             result.setMsg("请求查询的数据不存在");
             return result;
-        }*/
+        }
         logger.info("getVideoOrder;查询数据video:{}", JSONObject.toJSONString(video));
         VideoOrder videoOrder = new VideoOrder();
         videoOrder.setCreateTime(video.getCreateTime());
         videoOrder.setVideoId(video.getId());
         videoOrder.setVideoImg(video.getCoverImg());
+        videoOrder.setVideoTitle(video.getTitle());
         videoOrder.setServiceInfo(video.getServiceInfo());
         result.setCode(2000);
         result.setMsg("查询数据成功");

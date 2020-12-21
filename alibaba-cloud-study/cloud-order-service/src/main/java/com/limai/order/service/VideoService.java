@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @FeignClient(name = "cloud-video-service",fallback = VideoServiceFallback.class)
 public interface VideoService {
     @GetMapping("/video/testGetVideo")
-    ReturnResult findById(@RequestParam("videoid") Integer videoid);
+    Video findById(@RequestParam("videoid") Integer videoid);
     @RequestMapping(value = "video/saveVideo",method = RequestMethod.POST)
     void saveVideo(@RequestBody Video video);
 }

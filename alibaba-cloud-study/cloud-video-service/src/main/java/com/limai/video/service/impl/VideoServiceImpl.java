@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class VideoServiceImpl implements VideoService {
-    @Autowired(required = true)
+    @Autowired
     private VideoMapper videoMapper;
 
     @Override

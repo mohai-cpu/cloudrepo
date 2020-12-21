@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
@@ -25,27 +24,26 @@ public class TestController {
      * @param videoid
      * @return
      */
-    @RequestMapping(value = "/testGetVideo",method = RequestMethod.GET)
-    public ReturnResult testGetVideo( Integer videoid, HttpServletRequest request){
+    @RequestMapping(value = "/testGetVideo")
+    public Object testGetVideo( Integer videoid, HttpServletRequest request){
         logger.info("testGetVideo;参数videoid:{}",videoid);
-        ReturnResult result = new ReturnResult();
+       // ReturnResult result = new ReturnResult();
         Video video = videoService.findById(videoid);
         logger.info("testGetVideo;参数id:{};video:{}",videoid, JSONObject.toJSONString(video));
-        if(video==null){
+       /* if(video==null){
             result.setCode(2002);
             result.setMsg("查询的数据不存在");
             return result;
-        }
+        }*/
         video.setServiceInfo(request.getServerName()+":"+request.getServerPort());
-        result.setCode(2000);
+       /* result.setCode(2000);
         result.setMsg("查询数据成功");
-        result.setData(video);
-        return result;
+        result.setData(video);*/
+        return video;
     }
     @RequestMapping(value = "/saveVideo",method = RequestMethod.POST)
     public void saveVideo(@RequestBody Video video){
         logger.info("********************进入video的post请求********************");
         logger.info("saveVideo;video:{}",JSONObject.toJSONString(video));
     }
-
 }
