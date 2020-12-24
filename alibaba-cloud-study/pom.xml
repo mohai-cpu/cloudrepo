@@ -12,6 +12,7 @@
         <module>cloud-user-service</module>
         <module>cloud-order-service</module>
         <module>cloud-video-service</module>
+        <module>cloud-gateway-api</module>
     </modules>
     <packaging>pom</packaging>
 
