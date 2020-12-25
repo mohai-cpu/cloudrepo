@@ -3,6 +3,14 @@ server:
 spring:
   application:
     name: cloud-gateway-api
+  zipkin:
+    base-url: http://127.0.0.1:9411/ #zipkin地址
+    discovery-client-enabled: false  #不用开启服务发现
+  #默认为0.1，即10%，这里配置1，是记录全部的sleuth信息，是为了收集到更多的数据（仅供测试用）。
+  #在分布式系统中，过于频繁的采样会影响系统性能，所以这里配置需要采用一个合适的值。
+  sleuth:
+    sampler:
+      probability: 1.0 #采样百分比
   cloud:
     nacos:
       discovery:
@@ -18,6 +26,18 @@ spring:
           order: 1 #优先级，数字越小优先级越高
           predicates: #断言 配置哪个路径才转发
             - Path=/video-server/**
+           # - Before=2020-12-29T01:01:01.000+08:00  #在这个时间后接口不能访问
+           # - Query=source  #请求时必须携带这个参数
+          filters: #过滤器，请求在传递过程中通过过滤器修改
+            - StripPrefix=1  #去掉第一层前缀​
+        - id: cloud-order-service  #路由唯一标识
+          #uri: http://127.0.0.1:8083  #想要转发到的地址
+          uri: lb://cloud-order-service  #想要转发到的地址
+          order: 1 #优先级，数字越小优先级越高
+          predicates: #断言 配置哪个路径才转发
+            - Path=/order-server/**
+            # - Before=2020-12-29T01:01:01.000+08:00  #在这个时间后接口不能访问
+            # - Query=source  #请求时必须携带这个参数
           filters: #过滤器，请求在传递过程中通过过滤器修改
             - StripPrefix=1  #去掉第一层前缀​
 #访问路径 http://localhost:8084/video-server/video/testGetVideo
