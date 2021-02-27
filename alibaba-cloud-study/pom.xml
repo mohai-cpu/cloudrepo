@@ -13,6 +13,7 @@
         <module>cloud-order-service</module>
         <module>cloud-video-service</module>
         <module>cloud-gateway-api</module>
+        <module>rabbitmq_producer</module>
     </modules>
     <packaging>pom</packaging>
 
