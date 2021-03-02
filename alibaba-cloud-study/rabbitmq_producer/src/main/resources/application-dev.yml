@@ -1,0 +1,25 @@
+server:
+  port: 8083
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/cloud_vedio?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+  rabbitmq:
+    host: 127.0.0.1
+    username: guest
+    password: guest
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 127.0.0.1:8848
+#    sentinel:
+#      transport:
+#        dashboard: 127.0.0.1:8080
+#        port: 9000
+#控制台输出sql、下划线转驼峰video
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
