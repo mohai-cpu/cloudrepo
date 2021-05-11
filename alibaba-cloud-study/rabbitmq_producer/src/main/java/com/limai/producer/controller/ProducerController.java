@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/producer")
@@ -33,15 +35,34 @@ public class ProducerController {
         json1.put("status","add");
         list.add(json1);
         String ss = JSONObject.toJSONString(list);
-        rabbitTemplate.convertAndSend("fanouttest","",ss);
+        rabbitTemplate.convertAndSend("fanouttest","heliu","哈哈哈哈哈");
+    }
+
+    @RequestMapping("/testSend3")
+    public void testSend3(){
+        rabbitTemplate.convertAndSend("topictest","good.log","topic模式");
     }
 
     public static void main(String[] args) {
-        String ss = "10";
+        /*String ss = "10";
         int num = Integer.valueOf(ss);
         StringBuilder builder = new StringBuilder();
         builder.append("nihao").append(Integer.valueOf(ss));
         System.out.println(num);
         System.out.println(builder.toString());
+        String s1 = "522222196910141217";
+        String s2 = "";*/
+        List<String> list1 = new ArrayList<>();
+        list1.add("123");
+        list1.add("121");
+        list1.add("126");
+        list1.add("125");
+        List<String> list2 = new ArrayList<>();
+        list2.add("126");
+        list2.add("125");
+        list2.add("123");
+        list2.add("121");
+        boolean b = (list1.size()==list2.size() && list1.containsAll(list2));
+        System.out.println(b);
     }
 }

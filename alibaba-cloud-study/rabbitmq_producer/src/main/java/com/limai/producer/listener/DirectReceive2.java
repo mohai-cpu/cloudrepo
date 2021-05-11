@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 
-@Component
+//@Component
 @RabbitListener(queues = "dahai")
 public class DirectReceive2 {
     private Logger logger = LoggerFactory.getLogger(DirectReceive2.class);

@@ -1,7 +1,12 @@
-#server:
-#  port: 8083
-#my:
-#  name: luoqing
-#  age: 22
-#  number: ${random.int}
-#
+#spring:
+#  profiles: test
+#  rabbitmq:
+#    addresses: 10.154.9.107:5673,10.154.9.108:5673
+#    username: ts-msd-parse
+#    password: Qazxswts-msd-parse!
+#    virtualHost: tele-online
+#  rabbitmqcount:
+#    addresses: 10.130.202.58:5672,10.130.202.59:5672,10.130.202.60:5672
+#    username: chips-sale-system
+#    password: Qazxswchips-sale-system!
+#    virtualHost: life-insurance
