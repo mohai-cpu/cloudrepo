@@ -6,16 +6,13 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
-@RabbitListener(queues = "itcast")
-public class DirectReceive {
+//@Component
+@RabbitListener(queues = "test01")
+public class DirectReceive4 {
     @Autowired
     private RabbitTemplate rabbitTemplate;
     @RabbitHandler
     public void getMsg(String msg){
-        System.out.println(msg);
-       /* for(int i=1;i<5;i++){
-            rabbitTemplate.convertAndSend("itacst","ceshi");
-        }*/
+        System.out.println(msg+"test01");
     }
 }
