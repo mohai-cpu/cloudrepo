@@ -29,8 +29,3 @@ spring:
 #      transport:
 #        dashboard: 127.0.0.1:8080
 #        port: 9000
-#控制台输出sql、下划线转驼峰video
-mybatis:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    map-underscore-to-camel-case: true

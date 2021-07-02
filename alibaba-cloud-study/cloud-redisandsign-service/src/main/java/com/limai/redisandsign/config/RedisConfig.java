@@ -1,10 +1,21 @@
 package com.limai.redisandsign.config;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.cache.RedisCacheWriter;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.*;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.lang.reflect.Method;
 
@@ -41,4 +52,57 @@ public class RedisConfig extends CachingConfigurerSupport {
             return sb.toString();
         };
     }
-}
+    /**
+     * 缓存配置管理器
+     */
+    @Bean
+    public CacheManager cacheManager(LettuceConnectionFactory factory) {
+        //以锁写入的方式创建RedisCacheWriter对象
+        RedisCacheWriter writer = RedisCacheWriter.lockingRedisCacheWriter(factory);
+        //创建默认缓存配置对象
+        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
+        RedisCacheManager cacheManager = new RedisCacheManager(writer, config);
+        return cacheManager;
+    }
+
+
+    @Bean
+    public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory factory) {
+        RedisTemplate<String, Object> template = new RedisTemplate<>();
+        template.setConnectionFactory(factory);
+        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+        ObjectMapper om = new ObjectMapper();
+        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        jackson2JsonRedisSerializer.setObjectMapper(om);
+        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+        // 在使用注解@Bean返回RedisTemplate的时候，同时配置hashKey与hashValue的序列化方式。
+        // key采用String的序列化方式
+        template.setKeySerializer(stringRedisSerializer);
+        // value 序 列 化 方 式 采 用 jackson
+        //使用它操作普通字符串，会出现Could not read JSON  template.setValueSerializer(jackson2JsonRedisSerializer);
+        template.setValueSerializer(stringRedisSerializer);
+        // hash的key也采用String的序列化方式
+        template.setHashKeySerializer(stringRedisSerializer);
+        // hash的value序列化方式采用jackson
+        template.setHashValueSerializer(jackson2JsonRedisSerializer);
+        template.afterPropertiesSet();
+        return template;
+    }
+    @Bean
+    public ListOperations<String,String> redisList(RedisTemplate<String,String> redisTemplate){
+        return redisTemplate.opsForList();
+    }
+    @Bean
+    public SetOperations<String,String> redisSet(RedisTemplate<String,String> redisTemplate){
+        return redisTemplate.opsForSet();
+    }
+    @Bean
+    public ZSetOperations<String,String> redisZSet(RedisTemplate<String,String> redisTemplate){
+        return redisTemplate.opsForZSet();
+    }
+    @Bean
+    public HashOperations<String,String,String> redisHash(RedisTemplate<String,String> redisTemplate){
+        return redisTemplate.opsForHash();
+    }
+ }

@@ -46,24 +46,24 @@ public class TimeUtils {
      *@Author zhangjian
      *@Date 2021/3/1 17:54
      */
-    public static String dateToWeek() {
-        String[] weekDays = { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六" };
-        Calendar cal = Calendar.getInstance(); // 获得一个日历
-        Date datet = new Date();
-        try {
-            cal.setTime(datet);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        int w = cal.get(Calendar.DAY_OF_WEEK) - 1; // 指示一个星期中的某天。
-        if (w < 0)
-            w = 0;
-        return weekDays[w];
-    }
+
     /**
      * 按照提供的格式化样式输出当前时间的字符串表示形式
      *
-     * @param date   java.util.Date
+     * @param date   java.util.Dapublic static String dateToWeek() {
+     *         String[] weekDays = { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六" };
+     *         Calendar cal = Calendar.getInstance(); // 获得一个日历
+     *         Date datet = new Date();
+     *         try {
+     *             cal.setTime(datet);
+     *         } catch (Exception e) {
+     *             e.printStackTrace();
+     *         }
+     *         int w = cal.get(Calendar.DAY_OF_WEEK) - 1; // 指示一个星期中的某天。
+     *         if (w < 0)
+     *             w = 0;
+     *         return weekDays[w];
+     *     }te
      * @param format yyyy-MM-dd HH:mm:ss
      * @return String 字符串时间
      */
